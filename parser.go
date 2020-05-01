@@ -12745,6 +12745,11 @@ yynewstate:
 	case 945:
 		{
 			x := yyS[yypt-1].item.(*ast.InsertStmt)
+			ast.Debug("here2")
+			if yyS[yypt-3].item != nil {
+				ast.Debug("hint2")
+				x.TableHints = yyS[yypt-3].item.([]*ast.TableOptimizerHint)
+			}
 			x.Priority = yyS[yypt-6].item.(mysql.PriorityEnum)
 			x.IgnoreErr = yyS[yypt-5].item.(bool)
 			// Wraps many layers here so that it can be processed the same way as select statement.
@@ -12752,9 +12757,6 @@ yynewstate:
 			x.Table = &ast.TableRefsClause{TableRefs: &ast.Join{Left: ts}}
 			if yyS[yypt-0].item != nil {
 				x.OnDuplicate = yyS[yypt-0].item.([]*ast.Assignment)
-			}
-			if yyS[yypt-3].item != nil {
-				x.TableHints = yyS[yypt-3].item.([]*ast.TableOptimizerHint)
 			}
 			parser.yyVAL.statement = x
 		}
